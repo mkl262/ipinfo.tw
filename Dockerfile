@@ -25,7 +25,7 @@ RUN mkdir -p /run/nginx/ /usr/share/GeoIP/
 COPY --from=prepare /GeoLite2/*.mmdb /usr/share/GeoIP/
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache nginx nginx-mod-http-geoip2 \
+RUN apk add --no-cache nginx nginx-mod-http-geoip2 nginx-mod-http-js \
  && rm -f /etc/nginx/conf.d/default.conf
 
 COPY nginx/ /etc/nginx/
@@ -37,7 +37,7 @@ USER nginx
 
 RUN nginx -t 1>&2
 
-HEALTHCHECK --timeout=10s --start-period=5s CMD wget -O /dev/null http://127.0.0.1:8080 || exit 1
+HEALTHCHECK --timeout=10s --start-period=5s CMD wget -O /dev/null http://127.0.0.1:8080/status || exit 1
 
 EXPOSE 8080
 
