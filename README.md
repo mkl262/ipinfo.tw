@@ -46,7 +46,7 @@ Run the server daemon via docker:
 docker run -d --name ipinfo.tw -p 80:8080 peterdavehello/ipinfo.tw:latest
 ```
 
-If you want to put this container behind reverse proxy, set up an `X-Real-IP` header and pass the it to the container, so that it can use the header as the IP of the client.
+If you want to put this container behind reverse proxy, set up an `X-Forwarded-For` header and pass it to the container, so that it can use the header as the IP of the client.
 
 ### Client side
 
